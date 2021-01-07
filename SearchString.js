@@ -21,7 +21,7 @@ function loadBook(filename, displayName) {
             //remove line breaks and carriage returns and replace with a <br>
             currentBook = currentBook.replace(/(?:\r\n|\r|\n)/g, '<br>');
             document.getElementById("fileContent").innerHTML = currentBook;
-            var elmnt = document.getElementById("fileContent");
+            let elmnt = document.getElementById("fileContent");
             elmnt.scrollTop = 0;
         }
     };
@@ -29,15 +29,15 @@ function loadBook(filename, displayName) {
 
 //get the stats for the book
 function getDocStats(fileContent) {
-    var docLength = document.getElementById("doclength");
-    var wordCount = document.getElementById("wordCount");
-    var charCount = document.getElementById("charCount");
+    let docLength = document.getElementById("doclength");
+    let wordCount = document.getElementById("wordCount");
+    let charCount = document.getElementById("charCount");
 
     let text = fileContent.toLowerCase();
     let wordArray = text.match(/\b\S+\b/g);
     let wordDictionary = {};
 
-    var uncommonWords = [];
+    let uncommonWords = [];
 
     //filter out the uncommon words
     uncommonWords = filterStopWords(wordArray);
@@ -56,9 +56,9 @@ function getDocStats(fileContent) {
     let wordList = sortProperties(wordDictionary);
 
     //Return the top 5 words
-    var top5Words = wordList.slice(0, 6);
+    let top5Words = wordList.slice(0, 6);
     //Return the least 5 words
-    var least5Words = wordList.slice(-6, wordList.length);
+    let least5Words = wordList.slice(-6, wordList.length);
 
     //write the values to the page
     ULTemplate(top5Words, document.getElementById("mostUsed"));
@@ -94,9 +94,9 @@ function sortProperties(obj) {
 
 //filter out stop words
 function filterStopWords(wordArray) {
-    var commonWords = getStopWords();
-    var commonObj = {};
-    var unCommonArr = [];
+    let commonWords = getStopWords();
+    let commonObj = {};
+    let unCommonArr = [];
 
     for (i=0; i<commonWords.length; i++) {
         commonObj[commonWords[i].trim()] = true;
@@ -120,8 +120,8 @@ function getStopWords() {
 //Highlight the words in search
 function performMark() {
     //read the keyword
-    var keyword = document.getElementById("keyword").value;
-    var display = document.getElementById("fileContent");
+    let keyword = document.getElementById("keyword").value;
+    let display = document.getElementById("fileContent");
 
     var newContent = "";
 
@@ -134,18 +134,18 @@ function performMark() {
 
     }
 
-    var re = new RegExp(keyword, "gi");  
-    var replaceText = "<mark id='markme'>$&</mark>";
-    var bookContent = display.innerHTML;
+    let re = new RegExp(keyword, "gi");  
+    let replaceText = "<mark id='markme'>$&</mark>";
+    let bookContent = display.innerHTML;
 
     //add the mark t o the book content
     newContent = bookContent.replace(re, replaceText);
     display.innerHTML = newContent;
-    var count = document.querySelectorAll('mark').length;
+    let count = document.querySelectorAll('mark').length;
     document.getElementById("searchstat").innerHTML = "found " + count + " matches";
 
     if (count > 0) {
-        var element = document.getElementById("markme");
+        let element = document.getElementById("markme");
         element.scrollIntoView();
     }
 
